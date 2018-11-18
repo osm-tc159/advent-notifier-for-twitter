@@ -5,6 +5,7 @@ advent-notifier-for-twitter
 
 ## Requirements
 
+* FindBin
 * JSON
 * YAML::Tiny
 * LWP::UserAgent
@@ -15,7 +16,7 @@ advent-notifier-for-twitter
 ### Installing perl modules
 
 ```shellsession
-% cpan JSON YAML::Tiny LWP::UserAgent Net::Twitter::Lite::WithAPIv1_1
+% cpan FindBin JSON YAML::Tiny LWP::UserAgent Net::Twitter::Lite::WithAPIv1_1
 ```
 
 ### Edit config.yml
