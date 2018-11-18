@@ -31,7 +31,7 @@ sub do_tweet
     return $sender->update(decode_utf8($_[0]));
 }
 
-sub main()
+sub main
 {
     my ($day, $ua, $res, $data, @data_arr);
 

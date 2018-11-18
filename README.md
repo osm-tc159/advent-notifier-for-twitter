@@ -20,15 +20,13 @@ advent-notifier-for-twitter
 
 ### Edit config.yml
 
-```diff
--TWITTER_CONSUMER_KEY:           ''
--TWITTER_CONSUMER_SECRET:        ''
--TWITTER_ACCESS_TOKEN:           ''
--TWITTER_ACCESS_TOKEN_SECRET:    ''
-+TWITTER_CONSUMER_KEY:           'your_consumer_key'
-+TWITTER_CONSUMER_SECRET:        'your_consumer_secret'
-+TWITTER_ACCESS_TOKEN:           'your_access_token'
-+TWITTER_ACCESS_TOKEN_SECRET:    'your_access_token_secret'
+```shellsession
+% cat <<EOF > config.yml
+TWITTER_CONSUMER_KEY:           'your_consumer_key'
+TWITTER_CONSUMER_SECRET:        'your_consumer_secret'
+TWITTER_ACCESS_TOKEN:           'your_access_token'
+TWITTER_ACCESS_TOKEN_SECRET:    'your_access_token_secret'
+EOF
 ```
 
 ### Edit crontab
