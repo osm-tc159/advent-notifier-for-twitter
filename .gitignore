@@ -1,2 +1,3 @@
 config.yml
-./var/dayfile
+var/*
+!.gitkeep
