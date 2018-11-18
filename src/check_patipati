@@ -23,7 +23,7 @@ my $limited_natsuki = "\@patipatiniko アドベント書いてないけどなん
 
 sub is_sunday
 {
-    return strftime("%a", localtime()) eq "Sun" ? 1 : 0;
+    return strftime("%a", localtime()) eq "日" ? 1 : 0;
 }
 
 sub contains_patipati
