@@ -9,12 +9,13 @@ use strict;
 use warnings;
 use utf8;
 use Encode;
+use FindBin;
 use JSON;
 use YAML::Tiny;
 use LWP::UserAgent;
 use Net::Twitter::Lite::WithAPIv1_1;
 
-my $config = (YAML::Tiny->read('./config.yml'))->[0];
+my $config = (YAML::Tiny->read($FindBin::Bin . '/../config.yml'))->[0];
 
 sub do_tweet
 {

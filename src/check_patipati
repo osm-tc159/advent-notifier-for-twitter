@@ -1,0 +1,69 @@
+#!/usr/bin/perl
+#
+# 限定夏樹
+#
+# Copyright (c) 2018 sasairc
+# Released under the MIT license.
+# see https://github.com/sasairc/lsoac/blob/master/LICENSE
+#
+
+use strict;
+use warnings;
+use utf8;
+use POSIX qw(strftime);
+use Encode;
+use FindBin;
+use JSON;
+use YAML::Tiny;
+use LWP::UserAgent;
+use Net::Twitter::Lite::WithAPIv1_1;
+
+my $config = (YAML::Tiny->read($FindBin::Bin . '/../config.yml'))->[0];
+my $limited_natsuki = "\@patipatiniko アドベント書いてないけどなんで？一生おさむん家するんじゃないの？";
+
+sub is_sunday
+{
+    return strftime("%a", localtime()) eq "日" ? 1 : 0;
+}
+
+sub contains_patipati
+{
+    my ($ua, $res, $data, @data_arr);
+
+    $ua = LWP::UserAgent->new;
+    $res = $ua->get($config->{'API_URL'}, "accept" => "application/json");
+    $data = JSON->new()->utf8(0)->decode($res->content);
+    @data_arr = @{$data->{posts}};
+    foreach (@data_arr) {
+        if ($_->{url}) {
+            return 1 if ($_->{author} eq "パチパチ");
+        }
+    }
+
+    return 0;
+}
+
+sub send_to_patipati
+{
+    my $sender;
+
+    $sender = Net::Twitter::Lite::WithAPIv1_1->new (
+        consumer_key        => $config->{'TWITTER_CONSUMER_KEY'},
+        consumer_secret     => $config->{'TWITTER_CONSUMER_SECRET'},
+        access_token        => $config->{'TWITTER_ACCESS_TOKEN'},
+        access_token_secret => $config->{'TWITTER_ACCESS_TOKEN_SECRET'},
+        ssl => 1,
+    );
+
+    return $sender->update($limited_natsuki);
+}
+
+sub main {
+    return 0 if (!is_sunday());
+
+    send_to_patipati() if (!contains_patipati());
+
+    return 0;
+}
+
+main();
